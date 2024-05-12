@@ -1,8 +1,8 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { getTrain } from '/models/train.js';
-import { getTunnel } from '/models/tunnel.js';
-import { getTrackPath } from '/models/track_path.js';
+import { getTrain } from './train.js';
+import { getTunnel } from './tunnel.js';
+import { getTrackPath } from './track_path.js';
 
 
 // Variables globales
