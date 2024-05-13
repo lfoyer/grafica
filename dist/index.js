@@ -1,12 +1,13 @@
-import * as THREE from '../node_modules/three/build/three.module.js';
-import { OrbitControls } from '../node_modules/three/examples/jsm/controls/OrbitControls';
-import { getTrain } from './train.js';
-import { getTunnel } from './tunnel.js';
-import { getTrackPath } from './track_path.js';
-
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { getTrain } from '/models/train.js';
+import { getTunnel } from '/models/tunnel.js';
+import { getTrackPath } from '/models/track_path.js';
+import { getBridge } from '/models/bridge.js';
+import { getTrees } from '/models/trees.js';
 
 // Variables globales
-var renderer, scene, camera, cube;
+var renderer, scene, camera, controls, cameraName = "orbital", freeMove=false, distance, direction;
 
 function init() {
     // Scene and camera
@@ -20,7 +21,7 @@ function init() {
     document.body.appendChild( renderer.domElement );
 
     // Controls
-    const controls = new OrbitControls( camera, renderer.domElement );
+    controls = new OrbitControls( camera, renderer.domElement );
     controls.update();
     controls.enableDamping = true;
     controls.dampingFactor = 0.25;
@@ -70,14 +71,14 @@ function init() {
     const waterGeometry = new THREE.PlaneGeometry( 10, 10, 100, 100);
     const waterPlane = new THREE.Mesh( waterGeometry, waterMaterial );
     waterPlane.rotation.x = Math.PI / 2;
-    waterPlane.position.y = -0.1;
+    waterPlane.position.y = -0.14;
     waterPlane.receiveShadow = true;
     scene.add(waterPlane);
 
     // Camera settings
-    camera.position.x = 5;
-    camera.position.y = 5;
-    camera.position.z = 5;
+    camera.position.x = 2.5;
+    camera.position.y = 2.5;
+    camera.position.z = 2.5;
     camera.lookAt(0, 0, 0);
 
     //Create a helper for the shadow camera (optional)
@@ -87,6 +88,103 @@ function init() {
 
 function setupKeyControls() {
 
+    const cameraNames = ["orbital", "front", "back", "tunnel", "bridge", "free"]
+    var currentCameraIndex = 0;
+    
+    document.onkeydown = function (event) {
+        switch (event.keyCode) {
+            case 67:
+                currentCameraIndex++;
+                if (currentCameraIndex >= cameraNames.length) {
+                    currentCameraIndex = 0;
+                }
+                cameraName = cameraNames[currentCameraIndex];
+                setCamera(cameraName);
+                break;
+            case 49:
+                cameraName = "orbital";
+                currentCameraIndex = 0;
+                setCamera(cameraName);
+                break;
+            case 50:
+                cameraName = "front";
+                currentCameraIndex = 1;
+                setCamera(cameraName);
+                break;
+            case 51:
+                cameraName = "back";
+                currentCameraIndex = 2;
+                break;
+            case 52:
+                cameraName = "tunnel";
+                currentCameraIndex = 3;
+                setCamera(cameraName);
+                break;
+            case 53:
+                cameraName = "bridge";
+                currentCameraIndex = 4;
+                setCamera(cameraName);
+                break;
+            case 54:
+                cameraName = "free";
+                currentCameraIndex = 5;
+                setCamera(cameraName);
+                break;
+            case 37: // left
+                camera.rotation.y -= 0.03;
+                break;
+            case 38: // up
+                if (freeMove == true) {
+                    direction = new THREE.Vector3();
+                    camera.getWorldDirection( direction );
+                    distance = 0.01
+                    camera.position.add( direction.multiplyScalar(distance) );    
+                }
+                break;
+            case 39: // right
+                camera.rotation.y += 0.03;
+                break;
+            case 40: // down
+                if (freeMove == true) {
+                    direction = new THREE.Vector3();
+                    camera.getWorldDirection( direction );
+                    distance = 0.01
+                    camera.position.add( direction.multiplyScalar(-distance) );    
+                }
+                break;
+            }
+    };
+
+    function setCamera(cameraName) {
+        if (cameraName == "orbital") {
+            camera.position.x = 2.5;
+            camera.position.y = 2.5;
+            camera.position.z = 2.5;
+            camera.lookAt(0, 0, 0);
+            freeMove = false;
+        }
+        else if (cameraName == "tunnel") {
+            camera.position.x = 1.85;
+            camera.position.y = 0.11;
+            camera.position.z = 1.3;
+            camera.lookAt(1.8, 0, 0);
+            freeMove = false;
+        }
+        else if (cameraName == "bridge") {
+            camera.position.x = 1.6;
+            camera.position.y = 0.21;
+            camera.position.z = -1.4;
+            camera.lookAt(0.7, 0, 0);
+            freeMove = false;
+        }
+        else if (cameraName == "free") {
+            camera.position.x = 0;
+            camera.position.y = 0.11;
+            camera.position.z = 0;
+            camera.lookAt(0, 0.11, 1);
+            freeMove = true;
+        }
+    }
 }
 
 function render() {
@@ -147,8 +245,37 @@ function main() {
     trackPathMesh.scale.set(0.05, 0.05, 0.05);
     scene.add(trackPathMesh);
 
+    // Bridge
+    var bridge = getBridge();
+    bridge.position.x = 1.1;
+    bridge.position.z = -0.7;
+    bridge.position.y = -0.15;
+    bridge.scale.set(0.005, 0.005, 0.005);
+    scene.add(bridge);
+
+    // Trees
+    var trees = getTrees(3);
+    trees.scale.set(0.02, 0.02, 0.02);
+    trees.position.set(2, 0, 2);
+    scene.add(trees);
+
+    trees = getTrees(5);
+    trees.scale.set(0.02, 0.02, 0.02);
+    trees.position.set(-2, 0, -2);
+    scene.add(trees);
+
+    trees = getTrees(2);
+    trees.scale.set(0.02, 0.02, 0.02);
+    trees.position.set(2, 0, -2);
+    scene.add(trees);
+
+    trees = getTrees(4);
+    trees.scale.set(0.02, 0.02, 0.02);
+    trees.position.set(-2, 0, 2);
+    scene.add(trees);
+
     const offsetVector = new THREE.Vector3(-1.7, 0, -1.7);
-    var rescaledTrackPathCurve = transformPath(trackPathCurve.points, 0.05, offsetVector, Math.PI);
+    var rescaledTrackPathCurve = transformPath(trackPathCurve.points, 0.051, offsetVector, Math.PI);
     
     function animateMeshAlongCurve() {
         var t = 0; // parameter to control position along the curve
@@ -159,6 +286,19 @@ function main() {
             train.position.y += 0.08;
             const tangent = rescaledTrackPathCurve.getTangentAt(t).normalize().negate();
             train.lookAt(point.clone().add(tangent)); // orient mesh along curve tangent
+
+            // Train camera
+            if (cameraName == "front") {
+                camera.position.copy(point);
+                camera.position.y += 0.11;
+                camera.lookAt(point.clone().add(tangent.negate()));
+            }
+            else if (cameraName == "back") {
+                camera.position.copy(point);
+                camera.position.y += 0.11;
+                camera.lookAt(point.clone().add(tangent));
+            }
+
             t += 0.001; // adjust this value to control speed of movement along the curve
             if (t > 1) t = 0; // reset parameter to loop back along the curve
             
@@ -169,8 +309,7 @@ function main() {
     }
     animateMeshAlongCurve();
     render();
-
-    //setupKeyControls();
+    setupKeyControls();
 }
 
 main();
