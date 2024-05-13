@@ -6,6 +6,15 @@
 		<style>
 			body { margin: 0; }
 		</style>
+	    <script type="importmap">
+            {
+                "imports": {
+                    "three": "./build/three.module.js",
+                    "three/examples/jsm/controls/OrbitControls":"./jsm/controls/OrbitControls.js",
+                    "three/examples/jsm/libs/stats.module":"./jsm/libs/stats.module.js",
+                }
+            }
+        </script>
 	</head>
 	<body>
 		<script type="module" src="index.js"></script>
