@@ -1,4 +1,4 @@
-import * as THREE from 'three'
+import * as THREE from 'https://unpkg.com/three@0.141.0/build/three.module.js'
 import { OrbitControls } from 'https://unpkg.com/three@0.128.0/examples/jsm/controls/OrbitControls.js';
 import { getTrain } from './train.js';
 import { getTunnel } from './tunnel.js';
