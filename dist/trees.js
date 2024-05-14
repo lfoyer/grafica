@@ -18,7 +18,12 @@ export function getTrees(amount) {
 
     function getTree() {
         // Materials
-        const materialGreen = new THREE.MeshPhongMaterial( { color: 0x00ff00 } );
+        const materialGreen = new THREE.MeshPhongMaterial( {
+            color: 0x00ff00,
+            ambient: 0x333333, // Ambient reflectance
+            specular: 0x555555, // Specular reflectance
+            shininess: 5, // Shininess (specular highlight size)
+        } );
         const materialBrown = new THREE.MeshPhongMaterial( { color: 0x6e260e } );
 
         // Group
