@@ -1,11 +1,11 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { getTrain } from '/models/train.js';
-import { getTunnel } from '/models/tunnel.js';
-import { getTrackPath } from '/models/track_path.js';
-import { getBridge } from '/models/bridge.js';
-import { getBridgeCover } from '/models/bridge_cover.js';
-import { getTrees } from '/models/trees.js';
+import { getTrain } from 'train.js';
+import { getTunnel } from 'tunnel.js';
+import { getTrackPath } from 'track_path.js';
+import { getBridge } from 'bridge.js';
+import { getBridgeCover } from 'bridge_cover.js';
+import { getTrees } from 'trees.js';
 
 // Variables globales
 var renderer, scene, camera, controls, cameraName = "orbital", freeMove=false, distance, direction;
