@@ -2,7 +2,13 @@ import * as THREE from 'three';
 
 export function getTunnel() {
     // Create a material
-    const tunnelMaterial = new THREE.MeshPhongMaterial({ color: 0x808080, side: THREE.DoubleSide });
+    const tunnelMaterial = new THREE.MeshPhongMaterial({
+        color: 0x808080,
+        side: THREE.DoubleSide,
+        ambient: 0x333333, // Ambient reflectance
+        specular: 0xffffff, // Specular reflectance
+        shininess: 20, // Shininess (specular highlight size)
+ });
 
     // Tunnel shape
     const tunnelShape = new THREE.Shape();
@@ -26,7 +32,7 @@ export function getTunnel() {
     // Define the extrude settings
     const extrudeSettings = {
         steps: 20, // Number of steps in the extrusion (depth)
-        depth: 10, // Depth of the extrusion (height)
+        depth: 7, // Depth of the extrusion (height)
         bevelEnabled: false, // Disable beveling
     };
 

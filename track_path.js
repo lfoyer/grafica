@@ -17,11 +17,23 @@ export function getTrackPath() {
 
     // Define the cross-section shape of the track
     const trackShape = new THREE.Shape();
-    trackShape.moveTo(0, 0);
-    trackShape.lineTo(-0.5, 0.5);
-    trackShape.lineTo(-0.5, 1.5);
-    trackShape.lineTo(0, 2);
-    trackShape.lineTo(0, 0);
+    trackShape.moveTo(0, -1.5);
+    trackShape.lineTo(-0.5, -1);
+    trackShape.lineTo(-0.5, 1);
+    trackShape.lineTo(0, 1.5);
+    trackShape.lineTo(0, -1.5);
+
+    const railShape1 = new THREE.Shape();
+    railShape1.moveTo(-1, 1.25);
+    railShape1.lineTo(-1.15, 1.25);
+    railShape1.lineTo(-1.15, 1.4);
+    railShape1.lineTo(-1, 1.4);
+
+    const railShape2 = new THREE.Shape();
+    railShape2.moveTo(-1, 4-1.25);
+    railShape2.lineTo(-1.15, 4-1.25);
+    railShape2.lineTo(-1.15, 4-1.4);
+    railShape2.lineTo(-1, 4-1.4);
     
     // Define the extrude settings
     const extrudeSettings = {
@@ -34,14 +46,29 @@ export function getTrackPath() {
         extrudePath: trackPathCurve // Extrude along the track path
     };
 
-    // Extrude the shape to create a geometry
+    // Road
     const geometry = new THREE.ExtrudeGeometry(trackShape, extrudeSettings);
-
-    // Create a material
-    const materialGray = new THREE.MeshPhongMaterial( { color: 0xffdb9f } );
-
-    // Create a mesh using the extruded geometry and material
+    const materialGray = new THREE.MeshPhongMaterial( {
+        color: 0xffdb9f,
+        ambient: 0x333333, // Ambient reflectance
+        specular: 0x555555, // Specular reflectance
+        shininess: 10, // Shininess (specular highlight size)
+    } );
     const trackPathMesh = new THREE.Mesh(geometry, materialGray);
     
-    return [trackPathMesh, trackPathCurve];
+    // Rails
+    const railGeometry1 = new THREE.ExtrudeGeometry(railShape1, extrudeSettings);
+    const materialWhite = new THREE.MeshPhongMaterial( { color: 0xffffff } );
+    const railMesh1 = new THREE.Mesh(railGeometry1, materialWhite);
+
+    const railGeometry2 = new THREE.ExtrudeGeometry(railShape2, extrudeSettings);
+    const railMesh2 = new THREE.Mesh(railGeometry2, materialWhite);
+
+    // Group the track path and the rails
+    const trackPathGroup = new THREE.Group();
+    trackPathGroup.add(trackPathMesh);
+    //trackPathGroup.add(railMesh1);
+    //trackPathGroup.add(railMesh2);
+
+    return [trackPathGroup, trackPathCurve];
 }

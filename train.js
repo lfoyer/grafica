@@ -2,10 +2,34 @@ import * as THREE from 'three';
 
 export function getTrain() {
     // Materials
-    const materialRed = new THREE.MeshPhongMaterial( { color: 0xff0000 } );
-    const materialGreen = new THREE.MeshPhongMaterial( { color: 0x00ff00 } );
-    const materialBlue = new THREE.MeshPhongMaterial( { color: 0x0000ff } );
-    const materialGray = new THREE.MeshPhongMaterial( { color: 0x808080 } );
+    const materialRed = new THREE.MeshPhongMaterial( {
+        color: 0xff0000,
+        ambient: 0x333333, // Ambient reflectance
+        specular: 0xffffff, // Specular reflectance
+        shininess: 50, // Shininess (specular highlight size)
+
+    } );
+    const materialGreen = new THREE.MeshPhongMaterial( {
+        color: 0x00ff00,
+        ambient: 0x333333, // Ambient reflectance
+        specular: 0xffffff, // Specular reflectance
+        shininess: 50, // Shininess (specular highlight size)
+
+    } );
+    const materialBlue = new THREE.MeshPhongMaterial( {
+        color: 0x0000ff,
+        ambient: 0x333333, // Ambient reflectance
+        specular: 0xffffff, // Specular reflectance
+        shininess: 50, // Shininess (specular highlight size)
+
+    } );
+    const materialGray = new THREE.MeshPhongMaterial( {
+        color: 0x808080,
+        ambient: 0x333333, // Ambient reflectance
+        specular: 0xffffff, // Specular reflectance
+        shininess: 50, // Shininess (specular highlight size)
+
+    } );
 
     // Create Train group
     const train = new THREE.Group();
@@ -99,10 +123,10 @@ export function getTrain() {
     train.add(box2)
 
     // Box3 - cabin
-    const box3Geometry = new THREE.BoxGeometry( 15, 35, 15 );
+    const box3Geometry = new THREE.BoxGeometry( 15, 18, 15 );
     var box3 = new THREE.Mesh( box3Geometry, materialBlue );
     box3.position.z = 20;
-    box3.position.y = 7.5;
+    box3.position.y = 4;
     train.add(box3)
 
     // Box4 - cabin bottom
@@ -111,6 +135,16 @@ export function getTrain() {
     box4.position.z = 22.5;
     box4.position.y = -10;
     train.add(box4)
+
+    var coords = [[6.5, 13.5], [-6.5, 13.5], [-6.5, 26.5], [6.5, 26.5]];
+    
+    // Cabin sides
+    for(let i = 0; i <= 3; i++) {
+        const box5Geometry = new THREE.BoxGeometry( 2, 12.5, 2 );
+        var box5 = new THREE.Mesh( box5Geometry, materialBlue);
+        box5.position.set(coords[i][0], 19, coords[i][1]);
+        train.add(box5)
+    }
 
     // Roof - cabin roof
     const roofGeometry = new THREE.BoxGeometry( 1.5, 1.5, 20 );
