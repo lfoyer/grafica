@@ -4,28 +4,24 @@ export function getTrain() {
     // Materials
     const materialRed = new THREE.MeshPhongMaterial( {
         color: 0xff0000,
-        ambient: 0x333333, // Ambient reflectance
         specular: 0xffffff, // Specular reflectance
         shininess: 50, // Shininess (specular highlight size)
 
     } );
     const materialGreen = new THREE.MeshPhongMaterial( {
         color: 0x00ff00,
-        ambient: 0x333333, // Ambient reflectance
         specular: 0xffffff, // Specular reflectance
         shininess: 50, // Shininess (specular highlight size)
 
     } );
     const materialBlue = new THREE.MeshPhongMaterial( {
         color: 0x0000ff,
-        ambient: 0x333333, // Ambient reflectance
         specular: 0xffffff, // Specular reflectance
         shininess: 50, // Shininess (specular highlight size)
 
     } );
     const materialGray = new THREE.MeshPhongMaterial( {
         color: 0x808080,
-        ambient: 0x333333, // Ambient reflectance
         specular: 0xffffff, // Specular reflectance
         shininess: 50, // Shininess (specular highlight size)
 
