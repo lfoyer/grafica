@@ -1,4 +1,4 @@
-import * as THREE from 'https://unpkg.com/three@0.141.0/build/three.module.js'
+import * as THREE from 'https://unpkg.com/three/build/three.module.js'
 import { OrbitControls } from 'https://threejs.org/examples/jsm/controls/OrbitControls.js';
 import { getTrain } from './train.js';
 import { getTunnel } from './tunnel.js';
@@ -56,7 +56,7 @@ function init() {
     lightpoint.shadow.bias = -0.0005; // Set the shadow bias
     lightpoint.position.set( 0, 1, 0 );
     lightpoint.castShadow = true;
-    //scene.add( lightpoint );
+    scene.add( lightpoint );
 
     // Plane surface
     const displacementMap = new THREE.TextureLoader().load('./displacement.jpg')
