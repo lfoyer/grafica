@@ -51,7 +51,7 @@ function init() {
     //scene.add(ambientLight); // Add the light to the scene
 
     // Point light
-    const lightpoint = new THREE.PointLight( 0xffffff, 10, 10);
+    const lightpoint = new THREE.PointLight( 0xffffff, 50, 100);
     lightpoint.shadow.mapSize.set(512*3, 512*3); // Set the shadow map size
     lightpoint.shadow.bias = -0.0005; // Set the shadow bias
     lightpoint.position.set( 0, 1, 0 );
