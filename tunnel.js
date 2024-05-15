@@ -5,8 +5,8 @@ export function getTunnel() {
     const tunnelMaterial = new THREE.MeshPhongMaterial({
         color: 0x808080,
         side: THREE.DoubleSide,
-        specular: 0x111111, // Specular reflectance
-        shininess: 10, // Shininess (specular highlight size)
+        specular: 0xaaaaaa, // Specular reflectance
+        shininess: 50, // Shininess (specular highlight size)
  });
 
     // Tunnel shape
