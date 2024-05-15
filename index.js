@@ -83,7 +83,6 @@ function init() {
     const waterMaterial = new THREE.MeshPhongMaterial( {
         color: 0x0000ff,
         side: THREE.DoubleSide,
-        ambient: 0x333333, // Ambient reflectance
         specular: 0x666666, // Specular reflectance
         shininess: 50, // Shininess (specular highlight size)
     } );
