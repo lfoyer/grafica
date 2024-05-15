@@ -8,7 +8,8 @@ import { getBridgeCover } from './bridge_cover.js';
 import { getTrees } from './trees.js';
 
 // Variables globales
-var renderer, scene, camera, controls, cameraName = "orbital", freeMove=false, distance, direction;
+var renderer, scene, camera, controls, cameraName = "orbital", freeMove=false, distance, direction, currentCameraIndex = 0;
+const cameraNames = ["orbital", "front", "back", "tunnel", "bridge", "free"];
 
 function init() {
     // Scene and camera
@@ -106,11 +107,38 @@ function init() {
     //scene.add( helper );
 }
 
-function setupKeyControls() {
+function setCamera(cameraName) {
+    if (cameraName == "orbital") {
+        camera.position.x = 2.5;
+        camera.position.y = 2.5;
+        camera.position.z = 2.5;
+        camera.lookAt(0, 0, 0);
+        freeMove = false;
+    }
+    else if (cameraName == "tunnel") {
+        camera.position.x = 1.85;
+        camera.position.y = 0.11;
+        camera.position.z = 1.3;
+        camera.lookAt(1.8, 0, 0);
+        freeMove = false;
+    }
+    else if (cameraName == "bridge") {
+        camera.position.x = 1.6;
+        camera.position.y = 0.21;
+        camera.position.z = -1.4;
+        camera.lookAt(0.7, 0, 0);
+        freeMove = false;
+    }
+    else if (cameraName == "free") {
+        camera.position.x = 0;
+        camera.position.y = 0.11;
+        camera.position.z = 0;
+        camera.lookAt(0, 0.11, 1);
+        freeMove = true;
+    }
+}
 
-    const cameraNames = ["orbital", "front", "back", "tunnel", "bridge", "free"]
-    var currentCameraIndex = 0;
-    
+function setupKeyControls() {    
     document.onkeydown = function (event) {
         switch (event.keyCode) {
             case 67:
@@ -174,37 +202,6 @@ function setupKeyControls() {
                 break;
             }
     };
-
-    function setCamera(cameraName) {
-        if (cameraName == "orbital") {
-            camera.position.x = 2.5;
-            camera.position.y = 2.5;
-            camera.position.z = 2.5;
-            camera.lookAt(0, 0, 0);
-            freeMove = false;
-        }
-        else if (cameraName == "tunnel") {
-            camera.position.x = 1.85;
-            camera.position.y = 0.11;
-            camera.position.z = 1.3;
-            camera.lookAt(1.8, 0, 0);
-            freeMove = false;
-        }
-        else if (cameraName == "bridge") {
-            camera.position.x = 1.6;
-            camera.position.y = 0.21;
-            camera.position.z = -1.4;
-            camera.lookAt(0.7, 0, 0);
-            freeMove = false;
-        }
-        else if (cameraName == "free") {
-            camera.position.x = 0;
-            camera.position.y = 0.11;
-            camera.position.z = 0;
-            camera.lookAt(0, 0.11, 1);
-            freeMove = true;
-        }
-    }
 }
 
 function render() {
@@ -311,6 +308,17 @@ function main() {
             object.castShadow = true; // Enable shadow casting
             object.receiveShadow = true; // Enable shadow receiving
         }
+    });
+
+    const overlayButton = document.getElementById('overlayButton');
+    overlayButton.addEventListener('click', function () {
+        // For demonstration, let's change the cube's color when the button is clicked
+        currentCameraIndex++;
+        if (currentCameraIndex >= cameraNames.length) {
+            currentCameraIndex = 0;
+        }
+        cameraName = cameraNames[currentCameraIndex];
+        setCamera(cameraName);
     });
 
     const offsetVector = new THREE.Vector3(-1.7, 0, -1.7);
