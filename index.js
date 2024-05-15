@@ -43,7 +43,7 @@ function init() {
     directionalLight.shadow.bias = -0.0005; // Set the shadow bias
     directionalLight.castShadow = true; // Enable shadow casting
 
-    //scene.add(directionalLight); // Add the light to the scene
+    scene.add(directionalLight); // Add the light to the scene
 
     // Ambient Light
     //const ambientLight = new THREE.AmbientLight(0xffffff, 5); // Create ambient light with a soft white color
