@@ -1,5 +1,5 @@
-import * as THREE from '/node_modules/three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import * as THREE from 'https://unpkg.com/three/build/three.module.js'
+import { OrbitControls } from 'https://threejs.org/examples/jsm/controls/OrbitControls.js';
 import { getTrain } from './train.js';
 import { getTunnel } from './tunnel.js';
 import { getTrackPath } from './track_path.js';
@@ -51,7 +51,7 @@ function init() {
     //scene.add(ambientLight); // Add the light to the scene
 
     // Point light
-    const lightpoint = new THREE.PointLight( 0xffffff, 20, 100);
+    const lightpoint = new THREE.PointLight( 0xffffff, 1, 10);
     lightpoint.shadow.mapSize.set(512*3, 512*3); // Set the shadow map size
     lightpoint.shadow.bias = -0.0005; // Set the shadow bias
     lightpoint.position.set( 0, 1, 0 );
