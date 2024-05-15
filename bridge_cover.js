@@ -43,6 +43,7 @@ export function getBridgeCover(numCube) {
     var geometry = new THREE.ExtrudeGeometry(squareShape, extrudeSettings);
     var material = new THREE.MeshPhongMaterial({
         color: 0xd3d3d3,
+        ambient: 0x333333, // Ambient reflectance
         specular: 0xffffff, // Specular reflectance
         shininess: 50, // Shininess (specular highlight size)
 

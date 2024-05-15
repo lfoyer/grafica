@@ -46,6 +46,7 @@ export function getBridge() {
     const material = new THREE.MeshPhongMaterial({
         color: 0xd1831d,
         side: THREE.DoubleSide,
+        ambient: 0x333333, // Ambient reflectance
         specular: 0xffffff, // Specular reflectance
         shininess: 10, // Shininess (specular highlight size)
  });

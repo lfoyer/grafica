@@ -1,5 +1,5 @@
-import * as THREE from 'https://unpkg.com/three/build/three.module.js'
-import { OrbitControls } from 'https://threejs.org/examples/jsm/controls/OrbitControls.js';
+import * as THREE from '/node_modules/three'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { getTrain } from './train.js';
 import { getTunnel } from './tunnel.js';
 import { getTrackPath } from './track_path.js';
@@ -43,7 +43,7 @@ function init() {
     directionalLight.shadow.bias = -0.0005; // Set the shadow bias
     directionalLight.castShadow = true; // Enable shadow casting
 
-    scene.add(directionalLight); // Add the light to the scene
+    //scene.add(directionalLight); // Add the light to the scene
 
     // Ambient Light
     //const ambientLight = new THREE.AmbientLight(0xffffff, 5); // Create ambient light with a soft white color
@@ -51,12 +51,12 @@ function init() {
     //scene.add(ambientLight); // Add the light to the scene
 
     // Point light
-    const lightpoint = new THREE.PointLight( 0xffffff, 10, 10);
+    const lightpoint = new THREE.PointLight( 0xffffff, 20, 100);
     lightpoint.shadow.mapSize.set(512*3, 512*3); // Set the shadow map size
     lightpoint.shadow.bias = -0.0005; // Set the shadow bias
     lightpoint.position.set( 0, 1, 0 );
     lightpoint.castShadow = true;
-    //scene.add( lightpoint );
+    scene.add( lightpoint );
 
     // Plane surface
     const displacementMap = new THREE.TextureLoader().load('./displacement.jpg')
@@ -66,9 +66,9 @@ function init() {
         displacementMap: displacementMap,
         displacementScale: 1,
         wireframe: false,
-        ambient: 0x333333,
-        specular: 0x000000, // Specular reflectance
-        shininess: 1, // Shininess (specular highlight size)
+        ambient: 0x333333, // Ambient reflectance
+        specular: 0x111111, // Specular reflectance
+        shininess: 10, // Shininess (specular highlight size)
 
     } );
 
@@ -84,6 +84,7 @@ function init() {
     const waterMaterial = new THREE.MeshPhongMaterial( {
         color: 0x0000ff,
         side: THREE.DoubleSide,
+        ambient: 0x333333, // Ambient reflectance
         specular: 0x666666, // Specular reflectance
         shininess: 50, // Shininess (specular highlight size)
     } );
