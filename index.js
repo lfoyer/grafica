@@ -67,8 +67,8 @@ function init() {
         displacementScale: 1,
         wireframe: false,
         ambient: 0x333333, // Ambient reflectance
-        specular: 0x111111, // Specular reflectance
-        shininess: 10, // Shininess (specular highlight size)
+        specular: 0x000000, // Specular reflectance
+        shininess: 1, // Shininess (specular highlight size)
 
     } );
 
