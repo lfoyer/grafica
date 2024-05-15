@@ -56,7 +56,7 @@ function init() {
     lightpoint.shadow.bias = -0.0005; // Set the shadow bias
     lightpoint.position.set( 0, 1, 0 );
     lightpoint.castShadow = true;
-    scene.add( lightpoint );
+    //scene.add( lightpoint );
 
     // Plane surface
     const displacementMap = new THREE.TextureLoader().load('./displacement.jpg')
