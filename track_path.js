@@ -50,7 +50,6 @@ export function getTrackPath() {
     const geometry = new THREE.ExtrudeGeometry(trackShape, extrudeSettings);
     const materialGray = new THREE.MeshPhongMaterial( {
         color: 0xffdb9f,
-        ambient: 0x333333, // Ambient reflectance
         specular: 0x555555, // Specular reflectance
         shininess: 10, // Shininess (specular highlight size)
     } );
