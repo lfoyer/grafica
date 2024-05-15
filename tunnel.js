@@ -6,8 +6,8 @@ export function getTunnel() {
         color: 0x808080,
         side: THREE.DoubleSide,
         ambient: 0x333333, // Ambient reflectance
-        specular: 0x000000, // Specular reflectance
-        shininess: 0, // Shininess (specular highlight size)
+        specular: 0xffffff, // Specular reflectance
+        shininess: 50, // Shininess (specular highlight size)
  });
 
     // Tunnel shape
