@@ -66,7 +66,6 @@ function init() {
         displacementMap: displacementMap,
         displacementScale: 1,
         wireframe: false,
-        ambient: 0x333333, // Ambient reflectance
         specular: 0x000000, // Specular reflectance
         shininess: 1, // Shininess (specular highlight size)
 
