@@ -8,8 +8,7 @@
     "vite": "^5.1.6"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "deploy": "gh-pages -d ./dist/client"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "gh-pages -d dist"
   }
 }
