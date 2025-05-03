@@ -1,12 +1,12 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { Water } from 'three/addons/objects/Water2.js';
-import { getTrain } from '/public/models/train.js';
-import { getTunnel } from '/public/models/tunnel.js';
-import { getTrackPath } from '/public/models/track_path.js';
-import { getBridge } from '/public/models/bridge.js';
-import { getBridgeCover } from '/public/models/bridge_cover.js';
-import { getTrees } from '/public/models/trees.js';
+import { getTrain } from '/models/train.js';
+import { getTunnel } from '/models/tunnel.js';
+import { getTrackPath } from '/models/track_path.js';
+import { getBridge } from '/models/bridge.js';
+import { getBridgeCover } from '/models/bridge_cover.js';
+import { getTrees } from '/models/trees.js';
 
 // Variables globales
 var renderer, scene, camera, controls, cameraName = "orbital", freeMove=false, distance, direction, currentCameraIndex = 0, day = true;
@@ -40,12 +40,12 @@ function init() {
     let materialArrayDay = [];
     let materialArrayNight = [];
 
-    let texture_ft_day = new THREE.TextureLoader().load( '/public/textures/barren_ft.jpg');
-    let texture_bk_day = new THREE.TextureLoader().load( '/public/textures/barren_bk.jpg');
-    let texture_up_day = new THREE.TextureLoader().load( '/public/textures/barren_up.jpg');
-    let texture_dn_day = new THREE.TextureLoader().load( '/public/textures/barren_dn.jpg');
-    let texture_rt_day = new THREE.TextureLoader().load( '/public/textures/barren_rt.jpg');
-    let texture_lf_day = new THREE.TextureLoader().load( '/public/textures/barren_lf.jpg');
+    let texture_ft_day = new THREE.TextureLoader().load( 'textures/barren_ft.jpg');
+    let texture_bk_day = new THREE.TextureLoader().load( 'textures/barren_bk.jpg');
+    let texture_up_day = new THREE.TextureLoader().load( 'textures/barren_up.jpg');
+    let texture_dn_day = new THREE.TextureLoader().load( 'textures/barren_dn.jpg');
+    let texture_rt_day = new THREE.TextureLoader().load( 'textures/barren_rt.jpg');
+    let texture_lf_day = new THREE.TextureLoader().load( 'textures/barren_lf.jpg');
     
     materialArrayDay.push(new THREE.MeshBasicMaterial( { map: texture_ft_day }));
     materialArrayDay.push(new THREE.MeshBasicMaterial( { map: texture_bk_day }));
@@ -54,7 +54,7 @@ function init() {
     materialArrayDay.push(new THREE.MeshBasicMaterial( { map: texture_rt_day }));
     materialArrayDay.push(new THREE.MeshBasicMaterial( { map: texture_lf_day }));
 
-    let texture_night = new THREE.TextureLoader().load( '/public/textures/night_sky.png');
+    let texture_night = new THREE.TextureLoader().load( 'textures/night_sky.png');
 
     materialArrayNight.push(new THREE.MeshBasicMaterial( { map: texture_night, color: 0x444444 }));
     materialArrayNight.push(new THREE.MeshBasicMaterial( { map: texture_night, color: 0x444444 }));
@@ -125,15 +125,15 @@ function init() {
     scene.add( lightpoint );
 
     // Plane surface
-    const grassTexture = new THREE.TextureLoader().load('/public/textures/Grass_005_BaseColor.jpg');
-    const uvTexture = new THREE.TextureLoader().load('/public/textures/uv.png');
+    const grassTexture = new THREE.TextureLoader().load('textures/Grass_005_BaseColor.jpg');
+    const uvTexture = new THREE.TextureLoader().load('textures/uv.png');
 
     // Set texture wrapping mode
     grassTexture.wrapS = THREE.RepeatWrapping;
     grassTexture.wrapT = THREE.RepeatWrapping;
     grassTexture.repeat.set( 10, 10 );
 
-    const displacementMap = new THREE.TextureLoader().load('./public/displacement.jpg')
+    const displacementMap = new THREE.TextureLoader().load('./displacement.jpg')
 
     const material = new THREE.MeshPhongMaterial( {
         color: 0x55aa55,
